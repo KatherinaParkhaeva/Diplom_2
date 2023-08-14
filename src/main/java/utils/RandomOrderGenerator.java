@@ -3,7 +3,6 @@ package utils;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
-
 import java.util.ArrayList;
 
 public class RandomOrderGenerator {
@@ -19,7 +18,7 @@ public class RandomOrderGenerator {
     public ArrayList<String> getCorrectOrderIds(ArrayList<String> availableIds, int amount) {
         orderIds = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            randomIndex = faker.number().numberBetween(0, availableIds.size() - 1);
+            randomIndex = faker.number().numberBetween(0, availableIds.size()-1);
             orderIds.add(availableIds.get(randomIndex));
         }
         return orderIds;

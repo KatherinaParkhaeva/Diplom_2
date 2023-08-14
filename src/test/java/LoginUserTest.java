@@ -1,3 +1,4 @@
+import utils.RandomUserGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
@@ -7,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import user.User;
 import user.UserClient;
-import utils.RandomUserGenerator;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -15,8 +15,8 @@ import static user.UserCreds.credsFrom;
 
 public class LoginUserTest {
     private User user;
-    private final UserClient userClient = new UserClient();
-    private final RandomUserGenerator userGenerator = new RandomUserGenerator();
+    private UserClient userClient = new UserClient();
+    private RandomUserGenerator userGenerator = new RandomUserGenerator();
     private String accessToken;
 
     @Before

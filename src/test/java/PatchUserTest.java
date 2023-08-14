@@ -1,3 +1,4 @@
+import utils.RandomUserGenerator;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -10,36 +11,25 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import user.User;
 import user.UserClient;
-import utils.RandomUserGenerator;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class PatchUserTest {
+    private User user;
+    private UserClient userClient = new UserClient();
+    private RandomUserGenerator userGenerator = new RandomUserGenerator();
     JsonObject newUserInfo = new JsonObject();
+    private String accessToken;
+    private boolean isEmailChanged;
+    private boolean isNameChanged;
     String expectedEmail;
     String expectedName;
-    private User user;
-    private final UserClient userClient = new UserClient();
-    private final RandomUserGenerator userGenerator = new RandomUserGenerator();
-    private String accessToken;
-    private final boolean isEmailChanged;
-    private final boolean isNameChanged;
 
     public PatchUserTest(boolean isEmailChanged, boolean isNameChanged) {
         this.isEmailChanged = isEmailChanged;
         this.isNameChanged = isNameChanged;
-    }
-
-    @Parameterized.Parameters(name = "Изменяемые поля: email {0}, name {1}")
-    public static Object[][] getUserInfoData() {
-        return new Object[][]{
-                {true, true},
-                {true, false},
-                {false, true},
-                {false, false},
-        };
     }
 
     @Before
@@ -53,6 +43,15 @@ public class PatchUserTest {
         accessToken = accessTokenBearer.split(" ")[1];
     }
 
+    @Parameterized.Parameters(name = "Изменяемые поля: email {0}, name {1}")
+    public static Object[][] getUserInfoData() {
+        return new Object[][]{
+                {true, true},
+                {true, false},
+                {false, true},
+                {false, false},
+        };
+    }
     @Test
     @DisplayName("patch user with Auth")
     @Description("изменение данных пользователя с авторизацией")

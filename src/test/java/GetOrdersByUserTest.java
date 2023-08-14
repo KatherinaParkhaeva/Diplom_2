@@ -1,3 +1,5 @@
+import utils.RandomOrderGenerator;
+import utils.RandomUserGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
@@ -9,9 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import user.User;
 import user.UserClient;
-import utils.RandomOrderGenerator;
-import utils.RandomUserGenerator;
-
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -19,11 +18,11 @@ import static org.junit.Assert.assertEquals;
 
 public class GetOrdersByUserTest {
     private User user;
-    private final UserClient userClient = new UserClient();
-    private final RandomUserGenerator userGenerator = new RandomUserGenerator();
+    private UserClient userClient = new UserClient();
+    private RandomUserGenerator userGenerator = new RandomUserGenerator();
     private Order order;
-    private final OrderClient orderClient = new OrderClient();
-    private final RandomOrderGenerator orderGenerator = new RandomOrderGenerator();
+    private OrderClient orderClient = new OrderClient();
+    private RandomOrderGenerator orderGenerator = new RandomOrderGenerator();
     private String accessToken;
     private ArrayList<String> availableIds;
     private ArrayList<String> expectedOrderIds;
@@ -41,7 +40,7 @@ public class GetOrdersByUserTest {
         availableIds = orderClient.getAvailableIds();
         expectedOrderIds = orderGenerator.getOrderIds(availableIds, 2, true);
         order = new Order(expectedOrderIds);
-        ValidatableResponse orderResponse = orderClient.createOrder(order, accessToken);
+        orderClient.createOrder(order, accessToken);
     }
 
     @Test

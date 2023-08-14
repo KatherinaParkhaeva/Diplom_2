@@ -3,8 +3,8 @@ package user;
 import io.qameta.allure.Step;
 
 public class UserCreds {
-    private final String email;
-    private final String password;
+    private String email;
+    private String password;
 
     public UserCreds(String login, String password) {
         this.email = login;
